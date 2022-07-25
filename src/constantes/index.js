@@ -1,0 +1,1 @@
+export const MAXIMO_TAMANIO_BYTES = 10000000; // 10MB = 1 millón de bytes
