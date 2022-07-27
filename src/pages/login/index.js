@@ -19,6 +19,7 @@ import CustomTextField from '../../components/common/CustomTextField';
 export default function Login() {
   const { theme } = useContext(ThemeContext);
   const router = useRouter();
+  const { query } = router;
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -37,6 +38,15 @@ export default function Login() {
     });
   };
 
+  const handleForm = () => {
+    if ( query.id === "1" ) {
+      router.push('/consultant');
+    }else{
+      router.push('/company/step1');
+    }
+
+  }
+
   return (
     <WithAuth safe={false}>      
         <LayoutBackground
@@ -48,9 +58,10 @@ export default function Login() {
             sx={{
                 textTransform: "none",
                 color: theme.colorWhite,
-                backgroundColor: theme.colorBlue,
+                backgroundColor: theme.colorBlue2,
+                borderRadius: "8px",
                 '&:hover':{                            
-                    backgroundColor: theme.colorBlue
+                    backgroundColor: theme.colorBlue2
                 }
             }}
             fullWidth
@@ -58,7 +69,7 @@ export default function Login() {
             Continue with LinkedIn
           </Button>
           <Box mt={2} sx={{width: "100%"}} >
-              <Divider>or</Divider>
+              <Divider sx={{color: theme.colorDivider}}><span style={{color:theme.colorLabel}}>or</span></Divider>
           </Box>
           <form autoComplete='off' style={{marginTop: 0, width: "100%"}}>   
             <Box mt={2}>
@@ -84,58 +95,11 @@ export default function Login() {
                       onClick={handleClickShowPassword}
                       edge="end"
                     >
-                      {values.showPassword ? <VisibilityOff fontSize="small"/> : <Visibility fontSize="small"/>}
+                      {values.showPassword ? <VisibilityOff fontSize="small" sx={{color: theme.colorLabel}}/> : <Visibility fontSize="small" sx={{color: theme.colorLabel}}/>}
                     </IconButton>
                 </Box>
               </CustomTextField>
             </Box>
-            {/* <FormControl
-                fullWidth 
-                variant="outlined"
-                sx={{mt:2}}
-            >
-                <Typography
-                    sx={{fontSize: 16, ml:0, mb:0.5, fontWeight: 800}}
-                >
-                    Email
-                </Typography>
-                <OutlinedInput
-                    value={values.email}
-                    onChange={handleChange('email')}
-                    placeholder='Enter email'
-                    size="small"
-                    sx={{border: '1px solid #ced4da'}}
-                />
-            </FormControl>         */}
-            {/* <FormControl
-                fullWidth 
-                variant="outlined"
-                sx={{mt:2}}
-            >
-                <Typography
-                    sx={{fontSize: 16, ml:0, mb:0.5, fontWeight: 800}}
-                >
-                    Password
-                </Typography>
-                <OutlinedInput
-                  type={values.showPassword ? 'text' : 'password'}
-                  value={values.password}
-                  onChange={handleChange('password')}
-                  placeholder='Enter password'
-                  size="small"
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        edge="end"
-                      >
-                        {values.showPassword ? <VisibilityOff fontSize="small"/> : <Visibility fontSize="small"/>}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-            </FormControl>                 */}
             <FormControlLabel
               value="end"
               control={
@@ -145,9 +109,9 @@ export default function Login() {
                       sx={{borderRadius: 20,}}
                   />
               }
-              label={<span>Remember my login on this computer</span>}
+              label={<span style={{color: theme.colorLabel}}>Remember my login on this computer</span>}
               labelPlacement="end"
-              sx={{my:1}}
+              sx={{my:1,}}
             />
           </form>
           <Button 
@@ -157,17 +121,18 @@ export default function Login() {
                   color: theme.colorWhite,
               }}
               fullWidth
+              onClick={handleForm}
           >
               Log In
           </Button>
           <Box mt={2.5} sx={{width: "100%"}} >
-              <Divider/>
+              <Divider sx={{color: theme.colorDivider}}/>
           </Box>
           <Box sx={{display: "flex", mt:2,}}>
-              <Typography >Don&apos;t have an account?</Typography>
-              <Typography sx={{mx: 1}}>|</Typography>
+              <Typography sx={{color: theme.colorLabel}}>Don&apos;t have an account?</Typography>
+              <Typography sx={{mx: 1, color: theme.colorLabel}}>|</Typography>
               <Typography 
-                  sx={{fontWeight: "bold", cursor: "pointer"}}                        
+                  sx={{fontWeight: "bold", cursor: "pointer", color: theme.colorLabel}}                        
                   onClick={() => {router.push("signUp")}}
               >Sign Up</Typography>
           </Box>

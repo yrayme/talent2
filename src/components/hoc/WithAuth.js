@@ -22,7 +22,7 @@ const WithAuth = (props) => {
   }
 
   if (safe && !auth.auth) {
-    router.replace('/login')
+    router.replace('/role')
     return <></>
   }
 
@@ -30,6 +30,8 @@ const WithAuth = (props) => {
     router.replace('/dashboard')
     return <></>
   }
+
+  
 
   return children
 }

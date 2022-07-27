@@ -1,19 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import {styled, alpha} from '@mui/material/styles';
 import { InputBase, Typography } from '@mui/material';
 import NativeSelect from '@mui/material/NativeSelect';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { ThemeContext } from '../../contexts/useThemeContext';
 
 const StyledSelect = styled(InputBase)(({theme,error})=>({
   'label + &': {
     marginTop: theme.spacing(2.5)
   },
   '& .MuiInputBase-input': {
-    borderRadius: 6,
+    borderRadius: 8,
     position: 'relative',
-    border: error ? `1px solid ${theme.palette.error.main}` : '1px solid #ced4da',
+    border: error ? `1px solid ${theme.palette.error.main}` : '1px solid #D9D9D9',
     fontSize: 16,
     padding: "10px 10px",
     '&:focus': {
@@ -41,6 +42,7 @@ const CustomSelect = ({
   id, 
   onChange
   }) => {
+  const { theme } = useContext(ThemeContext);
     // console.log(options)
   const [age, setAge] = useState('');
 
@@ -50,7 +52,7 @@ const CustomSelect = ({
 
   return (
     <FormControl sx={{ minWidth: 120 }} fullWidth>
-    <StyledLabel error={error} shrink sx={{fontSize: 22, fontWeight: 600, marginLeft: -1.5}} htmlFor="input-field">
+    <StyledLabel error={error} shrink sx={{fontSize: 20, fontWeight: 600, marginLeft: -1.5, color: theme.colorLabel}} htmlFor="input-field">
       {label}
     </StyledLabel>
       <NativeSelect 

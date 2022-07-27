@@ -6,11 +6,15 @@ import { useRouter } from 'next/router'
 const PATHNAME_POST = [
   //'/',
   '/login',
+  '/role',
   '/signUp',
-  '/signUp1',
   '/section2',
-  '/signUp/step1',
-  '/signUp/step2',
+  '/consultant',
+  // '/consultant/step2',
+  // '/consultant/step3',
+  "/company/step1",
+  "/company/step2",
+  "/password-recovery"
 ]
 
 const STATE_INITIAL = {
@@ -82,7 +86,8 @@ function AuthProvider(props) {
           redirect ? router.replace('/dashboard') : null
         )
       } else if (!path) {
-        logout(path ? null : router.replace('/login'))
+        // sessionStorage.getItem("activeStep") ? router.push('/consultant/step1') : router.push('/role')
+        logout(path ? null : router.replace('/role'))
       }
     }
     initial()

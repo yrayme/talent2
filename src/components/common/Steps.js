@@ -11,21 +11,9 @@ import { ThemeContext } from '../../contexts/useThemeContext';
 import SignUpContext from '../../contexts/SignUpContext';
 import Check from '@mui/icons-material/Check';
 import { useRouter } from 'next/router';
-
-const steps = [
-    {
-        id: 1,
-        label: 'Log In details',
-    },
-    {
-        id: 2,
-        label: 'Tell us about ypurself',
-    },
-    {
-        id: 3,
-        label: 'Master Agreement',
-    },
-];
+import Step1 from '../Consultant/Step1/Step1';
+import Step2 from '../Consultant/Step2/Step2';
+import Step3 from '../Consultant/Step3/Step3';
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -101,26 +89,42 @@ function QontoStepIcon(props) {
   );
 }
 
-export default function Steps() {
+export default function Steps({disabled}) {
   const { theme } = useContext(ThemeContext);
   const { activeStep, setActiveStep } = useContext(SignUpContext);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   switch (activeStep) {
-  //     case 0:
-  //       return router.push('/signUp/step1');
-  //     case 1: 
-  //       return router.push('/signUp/step2');
-    
-  //     default:
-  //       break;
-  //   }
-  // }, [activeStep])
+  const steps = [
+    {
+        id: 1,
+        label: 'Log In details',
+    },
+    {
+        id: 2,
+        label: 'Tell us about yourself',
+        disabled: disabled
+    },
+    {
+        id: 3,
+        label: 'Master Agreement',
+    },
+];
   
+  const componentStep = (index) => {
+    switch (index) {
+        case 0:
+            return <Step1/>;
+        case 1: 
+            return <Step2/>;  
+        case 2: 
+            return <Step3/>;      
+        default:
+            break;
+    }
+  }  
 
   return (
-    <Box sx={{ width: '100%', backgroundColor: theme.graylight1, height: "100%" }} px={6} pb={5}>
+    <Box sx={{ width: '100%', backgroundColor: theme.colorGrayFondo, height: "100%" }} px={6} pb={5}>
         <Box sx={{ml:-3}}> 
             <Image 
                 src="/assets/logo.png"
@@ -130,14 +134,17 @@ export default function Steps() {
             />
         </Box>
         <Stepper activeStep={activeStep} connector={<QontoConnector />} sx={{pt:1}}>
-            {steps.map((step, index) => {
+            {steps.filter(
+            (item) => { return !item.disabled; },
+            ).map((step, index) => {
                 return (
                     <Step key={step.label}>
                         <StepLabel StepIconComponent={QontoStepIcon}>{step.label}</StepLabel>
                     </Step>
                 );
             })}
-        </Stepper>
+        </Stepper>        
+        <Typography sx={{ mt: 2, mb: 1 }}>{componentStep(activeStep)}</Typography>
     </Box>
   );
 }

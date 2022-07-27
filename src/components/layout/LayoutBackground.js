@@ -1,8 +1,9 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import Grid from '@mui/material/Grid';
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
+import { ThemeContext } from '../../contexts/useThemeContext';
 
 const container = {
     backgroundImage: "url('/assets/fondo.jpg')",
@@ -13,8 +14,9 @@ const container = {
     borderRadius: 15,
 }
 export default function LayoutBackground({children, title}) {
+  const { theme } = useContext(ThemeContext);
   return (
-    <Grid container spacing={0}>
+    <Grid container spacing={0} sx={{backgroundColor: theme.colorGrayFondo}}>
       <Grid item xs={12} md={6} p={2} 
         sx={{display: {xs: "none", md: "block"}}}
       >
@@ -28,11 +30,11 @@ export default function LayoutBackground({children, title}) {
             <Image 
                 src="/assets/logo.png"
                 alt="logo"
-                width={250}
-                height={120}
+                width={180}
+                height={80}
             />
           </Box>
-          <Typography variant='h4' sx={{fontWeight: "bold", mb:3}}>{title}</Typography>
+          <Typography sx={{fontWeight: 600, mb:3, fontSize: "30px"}}>{title}</Typography>
           {children}
         </Box>
       </Grid>

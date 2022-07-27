@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { AlertContext } from '../../contexts/useAlertContext';
 import { MAXIMO_TAMANIO_BYTES } from '../../constantes';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Input = styled('input')({
     display: 'none',
@@ -17,6 +18,7 @@ export default function ButtonUpload({
     imagen,
     title,
     photo,
+    type,
 }) {
     const { theme } = useContext(ThemeContext);
     const { alertError, alertWarning, alertSuccess } = useContext(AlertContext);
@@ -48,7 +50,7 @@ export default function ButtonUpload({
         <Stack direction="row" alignItems="center" spacing={2} > 
             <label htmlFor="contained-button-file">
                 <Input 
-                    accept="image/*" 
+                    accept={type} 
                     id="contained-button-file" 
                     type="file"                     
                     onChange={(e) => {base64(e.target, true)}} 
@@ -57,11 +59,11 @@ export default function ButtonUpload({
                 <Button 
                     component="span"
                     variant="outlined"
-                    startIcon={<CloudUploadIcon sx={{color: theme.grayLight}}/>}
+                    startIcon={<LogoutIcon sx={{color: theme.colorLabel, transform: "rotate(270deg)"}}/>}
                     sx={{
                         height: 45, 
                         borderRadius: 2, 
-                        color: theme.grayLight,
+                        color: theme.colorLabel,
                         border: `1px solid ${theme.grayInput}`,                  
                         textTransform: "none",
                         px: 4,

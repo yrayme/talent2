@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { alpha, styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import PropTypes from "prop-types";
 import { TextField, Typography } from '@mui/material';
+import { ThemeContext } from '../../contexts/useThemeContext';
 
 const BootstrapInput = styled(InputBase)(({ theme, type, iconleft, error }) => ({
   'label + &': {
     marginTop: theme.spacing(2.5),
   },
   '& .MuiInputBase-input': {
-    borderRadius: 6,
+    borderRadius: 8,
     position: 'relative',
-    border: error ? `1px solid ${theme.palette.error.main}` : '1px solid #ced4da',
+    border: error ? `1px solid ${theme.palette.error.main}` : '1px solid #D9D9D9',
     fontSize: 16,
     padding: type ? '10px 40px 10px 10px' : "10px 10px",
     paddingLeft: iconleft ? "45px" : "10px",
@@ -46,11 +47,12 @@ const CustomTextField = ({
     rows,
     name
   }) => {
+  const { theme } = useContext(ThemeContext);
   return(
     <FormControl fullWidth 
       error={error}
     >
-      <StyledLabel error={error} shrink sx={{fontSize: 22, fontWeight: 600, marginLeft: -1.5}} htmlFor="input-field">
+      <StyledLabel error={error} shrink sx={{fontSize: 20, fontWeight: 600, marginLeft: -1.5, color: theme.colorLabel}} htmlFor="input-field">
         {label}
       </StyledLabel>
       <BootstrapInput
